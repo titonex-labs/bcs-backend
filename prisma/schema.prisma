@@ -20,3 +20,15 @@ model Farmer {
 
     @@map("farmer")
 }
+
+//* Model - Agent
+model Agent {
+    id        String   @id @default(uuid()) @db.Uuid
+    name      String   @db.VarChar(50)
+    phone     String   @unique @db.VarChar(15)
+    isActive  Boolean  @default(true)
+    createdAt DateTime @default(now()) @db.Timestamp
+    updatedAt DateTime @db.Timestamp
+
+    @@map("agent")
+}
