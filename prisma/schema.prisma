@@ -24,6 +24,13 @@ enum BookingStatus {
     CANCELED
 }
 
+//* Enum - StorageReceiptStatus
+enum StorageReceiptStatus {
+    RECEIVED
+    STORED
+    RELEASED
+}
+
 //* Model - Farmer
 model Farmer {
     id         String   @id @default(uuid()) @db.Uuid
@@ -81,12 +88,29 @@ model Booking {
     seasonId      String        @db.Uuid
     agentId       String        @db.Uuid
     farmerId      String        @db.Uuid
-    bookedSacks   Int           @db.SmallInt
+    bookedSacks   Int
     advanceAmount Int
     note          String?       @db.VarChar(150)
     status        BookingStatus @default(PENDING)
     bookedAt      DateTime      @default(now()) @db.Timestamptz
     updatedAt     DateTime      @updatedAt @db.Timestamptz
+}
+
+//* Model - StorageReceipt
+model StorageReceipt {
+    id               String               @id @default(uuid()) @db.Uuid
+    storageReceiptNo BigInt               @default(autoincrement())
+    bookingId        String               @unique @db.Uuid
+    chamberNo        Int                  @db.SmallInt
+    totalSacks       Int
+    totalWeight      Decimal              @db.Decimal(8, 2)
+    status           StorageReceiptStatus @default(RECEIVED)
+
+    receivedAt DateTime  @db.Timestamptz
+    storedAt   DateTime? @db.Timestamptz
+    releasedAt DateTime? @db.Timestamptz
+    createdAt  DateTime  @default(now()) @db.Timestamptz
+    updatedAt  DateTime  @updatedAt @db.Timestamptz
 }
 
 //* Model - Position
