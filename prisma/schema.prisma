@@ -14,6 +14,16 @@ enum SeasonStatus {
     ENDED
 }
 
+//* Enum - BookingStatus
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    STORED
+    RELEASED
+    COMPLETED
+    CANCELED
+}
+
 //* Model - Farmer
 model Farmer {
     id         String   @id @default(uuid()) @db.Uuid
@@ -35,7 +45,7 @@ model Agent {
     phone     String   @unique @db.VarChar(15)
     isActive  Boolean  @default(true)
     createdAt DateTime @default(now()) @db.Timestamptz
-    updatedAt DateTime @db.Timestamptz
+    updatedAt DateTime @updatedAt @db.Timestamptz
 
     @@map("agent")
 }
@@ -64,12 +74,27 @@ model ChamberLot {
     @@map("chamber_lot")
 }
 
+//* Model - Booking
+model Booking {
+    id            String        @id @default(uuid()) @db.Uuid
+    bookingNo     BigInt        @default(autoincrement())
+    seasonId      String        @db.Uuid
+    agentId       String        @db.Uuid
+    farmerId      String        @db.Uuid
+    bookedSacks   Int           @db.SmallInt
+    advanceAmount Int
+    note          String?       @db.VarChar(150)
+    status        BookingStatus @default(PENDING)
+    bookedAt      DateTime      @default(now()) @db.Timestamptz
+    updatedAt     DateTime      @updatedAt @db.Timestamptz
+}
+
 //* Model - Position
 model Position {
     id               String   @id @default(uuid()) @db.Uuid
     bookingId        String   @unique @db.Uuid
     storageReceiptId String   @unique @db.Uuid
-    chamberId        String   @db.Uuid
+    chamberNo        Int      @db.SmallInt
     loadingPosition  String   @db.VarChar(15)
     sacks            Int
     note             String?  @db.VarChar(150)
