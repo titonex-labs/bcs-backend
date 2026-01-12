@@ -1,10 +1,14 @@
 import express, { Application } from "express";
+import { chamberLotsRouter } from "./modules/chamber-lots/chamber-lots.router.ts";
 
 //* Express App
 const app: Application = express();
 
 //* Global Middlewares
 app.use(express.json());
+
+//* Modules
+app.use(`${process.env.API_BASE}/chamber-lots`, chamberLotsRouter);
 
 // GET /
 app.get("/", (_req, res) => {

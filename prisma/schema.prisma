@@ -31,6 +31,13 @@ enum StorageReceiptStatus {
     RELEASED
 }
 
+//* Enum - LotStatus
+enum LotStatus {
+    EMPTY
+    PARTIAL
+    FULL
+}
+
 //* Model - Farmer
 model Farmer {
     id         String   @id @default(uuid()) @db.Uuid
@@ -69,14 +76,14 @@ model Season {
 
 //* Model - ChamberLot
 model ChamberLot {
-    id             String   @id @default(uuid()) @db.Uuid
-    floorNo        Int      @db.SmallInt
-    chamberNo      Int      @db.SmallInt
-    lotNo          Int      @db.SmallInt
-    capacitySacks  Int      @db.SmallInt
-    capacityWeight Decimal  @db.Decimal(8, 2)
-    createdAt      DateTime @default(now()) @db.Timestamptz
-    updatedAt      DateTime @updatedAt @db.Timestamptz
+    id          String    @id @default(uuid()) @db.Uuid
+    floorNo     Int       @db.SmallInt
+    chamberNo   Int       @db.SmallInt
+    lotNo       Int       @db.SmallInt
+    currentLoad Int       @db.SmallInt
+    status      LotStatus @default(EMPTY)
+    createdAt   DateTime  @default(now()) @db.Timestamptz
+    updatedAt   DateTime  @updatedAt @db.Timestamptz
 
     @@map("chamber_lot")
 }
@@ -94,6 +101,8 @@ model Booking {
     status        BookingStatus @default(PENDING)
     bookedAt      DateTime      @default(now()) @db.Timestamptz
     updatedAt     DateTime      @updatedAt @db.Timestamptz
+
+    @@map("booking")
 }
 
 //* Model - StorageReceipt
