@@ -13,6 +13,14 @@ const createAgent = async (
 	return result;
 };
 
-const agentsService = { createAgent };
+//* Get Agents
+const getAgents = async () => {
+	// Retrieve all agents from DB
+	const result = await prisma.agent.findMany();
+	// Return result
+	return result;
+};
+
+const agentsService = { createAgent, getAgents };
 
 export { agentsService };

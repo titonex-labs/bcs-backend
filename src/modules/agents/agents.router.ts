@@ -6,5 +6,7 @@ const router = Router();
 
 // POST /
 router.post("/", agentsController.createAgent);
+// GET /
+router.get("/", agentsController.getAgents);
 
 export { router as agentsRouter };

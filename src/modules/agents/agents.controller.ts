@@ -27,6 +27,31 @@ const createAgent = async (req: Request, res: Response) => {
 	}
 };
 
-const agentsController = { createAgent };
+//* Get Agents
+const getAgents = async (req: Request, res: Response) => {
+	try {
+		// Nuts and Bolts
+		const data: Agent[] = await agentsService.getAgents();
+		// 200 success response
+		return res.status(200).json({
+			success: true,
+			message: "Agents retrieved successfully",
+			data,
+		});
+	} catch (err: any) {
+		// 500 error response
+		return res.status(500).json({
+			success: false,
+			message: "Unable to retrieve agents",
+			error: {
+				code: err.code || undefined,
+				message: err.message || undefined,
+				details: err,
+			},
+		});
+	}
+};
+
+const agentsController = { createAgent, getAgents };
 
 export { agentsController };
