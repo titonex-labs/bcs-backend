@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { ChamberLot } from "../../../generated/prisma/client.ts";
 import { chamberLotsService } from "./chamber-lots.service.ts";
-import { success } from "better-auth";
 
 //* Create a Chamber Lot
 const createChamberLot = async (req: Request, res: Response) => {
