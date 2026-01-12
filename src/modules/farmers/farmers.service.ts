@@ -11,6 +11,14 @@ const createFarmer = async (data: Omit<Farmer, "id" | "createdAt" | "updatedAt">
 	return result;
 };
 
-const farmersService = { createFarmer };
+//* Get Farmers
+const getFarmers = async () => {
+	// Retrieve all farmers from DB
+	const result = await prisma.farmer.findMany();
+	// Return result
+	return result;
+};
+
+const farmersService = { createFarmer, getFarmers };
 
 export { farmersService };
