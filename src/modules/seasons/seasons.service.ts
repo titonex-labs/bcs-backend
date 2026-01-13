@@ -9,6 +9,14 @@ const createSeason = async (data: Omit<Season, "id" | "createdAt">) => {
 	return result;
 };
 
-const seasonsService = { createSeason };
+//* Get Seasons
+const getSeasons = async () => {
+	// Retrieve all seasons from DB
+	const result = await prisma.season.findMany();
+	// Return result
+	return result;
+};
+
+const seasonsService = { createSeason, getSeasons };
 
 export { seasonsService };

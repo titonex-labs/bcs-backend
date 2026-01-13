@@ -27,6 +27,31 @@ const createSeason = async (req: Request, res: Response) => {
 	}
 };
 
-const seasonsController = { createSeason };
+//* Get Seasons
+const getSeasons = async (req: Request, res: Response) => {
+	try {
+		// Nuts and Bolts
+		const data: Season[] = await seasonsService.getSeasons();
+		// 200 success response
+		return res.status(200).json({
+			success: true,
+			message: "Seasons retrieved successfully",
+			data,
+		});
+	} catch (err: any) {
+		// 500 error response
+		return res.status(500).json({
+			success: false,
+			message: "Unable to retrieve seasons",
+			error: {
+				code: err.code || undefined,
+				message: err.message || undefined,
+				details: err,
+			},
+		});
+	}
+};
+
+const seasonsController = { createSeason, getSeasons };
 
 export { seasonsController };

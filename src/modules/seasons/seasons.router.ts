@@ -6,5 +6,7 @@ const router = Router();
 
 // POST /
 router.post("/", seasonsController.createSeason);
+// GET /
+router.get("/", seasonsController.getSeasons);
 
 export { router as seasonsRouter };
