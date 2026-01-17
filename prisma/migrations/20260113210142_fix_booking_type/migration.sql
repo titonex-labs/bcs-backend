@@ -5,4 +5,9 @@
 
 */
 -- AlterTable
-ALTER TABLE "booking" ALTER COLUMN "bookingNo" SET DATA TYPE SERIAL;
+CREATE SEQUENCE IF NOT EXISTS booking_bookingNo_seq;
+
+ALTER TABLE "booking" ALTER COLUMN "bookingNo" SET DEFAULT nextval('booking_bookingNo_seq');
+
+ALTER SEQUENCE booking_bookingNo_seq
+OWNED BY "booking"."bookingNo";

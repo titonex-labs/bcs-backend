@@ -91,7 +91,7 @@ model ChamberLot {
 //* Model - Booking
 model Booking {
     id            String        @id @default(uuid()) @db.Uuid
-    bookingNo     BigInt        @default(autoincrement())
+    bookingNo     Int           @default(dbgenerated("nextval('booking_bookingno_seq')"))
     seasonId      String        @db.Uuid
     agentId       String        @db.Uuid
     farmerId      String        @db.Uuid
